@@ -498,19 +498,18 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function(
       ,shadeClose: true
       ,maxWidth: 10000
       ,skin: 'fly-layer-search'
-      ,content: ['<form action="http://cn.bing.com/search">'
-        ,'<input autocomplete="off" placeholder="搜索内容，回车跳转" type="text" name="q">'
+      ,content: ['<form action="https://www.baidu.com/s">'
+        ,'<input autocomplete="off" placeholder="站内百度，回车搜索" type="text" name="wd">'
       ,'</form>'].join('')
       ,success: function(layero){
         var input = layero.find('input');
         input.focus();
-
         layero.find('form').submit(function(){
           var val = input.val();
           if(val.replace(/\s/g, '') === ''){
             return false;
           }
-          input.val('site:layui.com '+ input.val());
+          input.val(input.val());
       });
       }
     })

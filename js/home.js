@@ -14,7 +14,6 @@ function findUser() {
                 $("#username1").html(data.dataObject.userName);
                 $("#userVIPGrade1").html("VIP"+data.dataObject.userVipGrade);
                 $("#userNameAndImg").html(data.dataObject.userName);
-
                 $("#userType").html("认证信息："+data.dataObject.userType);
                 $("#userVIPGrade2").html("VIP"+data.dataObject.userVipGrade);
                 $("#userMoney").html(data.dataObject.userMoney+" Zach币");

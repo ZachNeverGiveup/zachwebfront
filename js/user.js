@@ -74,28 +74,27 @@ $("#loginBtn").on('click',(function () {
     console.log("username"+username);
     console.log("password"+password);
 
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:3002/login/",
-            data:{userName:username,
-                userPassword:password},
-            dataType:'json',
-            xhrFields: {
-                withCredentials: true
-            },
-            success:function(data){
-                if (data.message=="Success"){
-                    window.location.href = "home.html";
-                }else{
-                    alert(data.message);
-                }
-            },
-            error:function(XMLHttpRequest, textStatus, errorThrown){
-                alert("服务器请求错误");
-                alert(XMLHttpRequest.status);
-                alert(XMLHttpRequest.readyState);
-                alert(textStatus);
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:3002/login/",
+        data:{userName:username,
+            userPassword:password},
+        dataType:'json',
+        xhrFields: {
+            withCredentials: true
+        },
+        success:function(data){
+            if (data.message=="Success"){
+                window.location.href = "home.html";
+            }else{
+                alert(data.message);
             }
-        });
+        },
+        error:function(XMLHttpRequest, textStatus, errorThrown){
+            alert("服务器请求错误");
+            alert(XMLHttpRequest.status);
+            alert(XMLHttpRequest.readyState);
+            alert(textStatus);
+        }
+    });
 }));
-
