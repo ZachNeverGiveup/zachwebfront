@@ -14,13 +14,25 @@ function findUser() {
                 $("#username1").html(data.dataObject.userName);
                 $("#userVIPGrade1").html("VIP"+data.dataObject.userVipGrade);
                 $("#userNameAndImg").html(data.dataObject.userName);
-                $("#userType").html("认证信息："+data.dataObject.userType);
+                if (data.dataObject.userVerifyStatus=="HAS_AUTHENTICATED"){
+                    $("#userType").html("认证信息："+data.dataObject.userType+"（已认证）");
+                }if (data.dataObject.userVerifyStatus=="NO_AUTHENTICATE"){
+                    $("#userType").html("认证信息："+data.dataObject.userType+"（未认证）");
+                }if (data.dataObject.userVerifyStatus=="PENDING"){
+                    $("#userType").html("认证信息："+data.dataObject.userType+"（认证中）");
+                }
                 $("#userVIPGrade2").html("VIP"+data.dataObject.userVipGrade);
                 $("#userMoney").html(data.dataObject.userMoney+" Zach币");
                 $("#userCity").html("来自"+data.dataObject.userCity);
                 var date = new Date(data.dataObject.userRegistTime);
-                $("#usertime").html(date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate()+"加入");
-                $("#usersignature").html("（"+data.dataObject.userSignature+"）")
+                var month = date.getMonth()+1;
+                $("#usertime").html(date.getFullYear()+"-"+month+"-"+date.getDate()+"加入");
+                if(data.dataObject.userSignature!=null&&data.dataObject.userSignature!="undefined"&&data.dataObject.userSignature!=""){
+                    $("#usersignature").html("（"+data.dataObject.userSignature+"）");
+                }else{
+                    $("#usersignature").html("这名用户很懒，什么也没有留下~");
+                }
+
             }else{
                 alert(data.message);
             }

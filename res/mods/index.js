@@ -515,7 +515,35 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function(
     })
   });
 
-  //新消息通知
+   /* function enterSumbit(){
+        var event=arguments.callee.caller.arguments[0]||window.event;//消除浏览器差异
+        if (event.keyCode == 13){
+            layer.open({
+                type: 1
+                ,title: false
+                ,closeBtn: false
+                //,shade: [0.1, '#fff']
+                ,shadeClose: true
+                ,maxWidth: 10000
+                ,skin: 'fly-layer-search'
+                ,content: ['<form action="https://www.baidu.com/s">'
+                    ,'<input autocomplete="off" placeholder="站内百度，回车搜索" type="text" name="wd">'
+                    ,'</form>'].join('')
+                ,success: function(layero){
+                    var input = layero.find('input');
+                    input.focus();
+                    layero.find('form').submit(function(){
+                        var val = input.val();
+                        if(val.replace(/\s/g, '') === ''){
+                            return false;
+                        }
+                        input.val(input.val());
+                    });
+                }
+            })
+        }
+    }*/
+    //新消息通知
   fly.newmsg();
 
   //发送激活邮件
@@ -611,8 +639,8 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function(
     ,bgcolor: '#009688'
     ,click: function(type){
       if(type === 'bar1'){
-        layer.msg('打开 index.js，开启发表新帖的路径');
-        //location.href = 'jie/add.html';
+        //layer.msg('打开 index.js，开启发表新帖的路径');
+        location.href = '../jie/add.html';
       }
     }
   });
