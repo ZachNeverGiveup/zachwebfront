@@ -5,8 +5,6 @@
   <meta charset="utf-8">
   <title>帐号设置</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="fly,layui,前端社区">
-  <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
   <link rel="stylesheet" href="../../res/layui/css/layui.css">
   <link rel="stylesheet" href="../../res/css/global.css">
 </head>
@@ -112,13 +110,14 @@
               <div class="layui-input-inline">
                 <input type="text" id="L_username" name="username" required lay-verify="required" autocomplete="off" value="" class="layui-input">
               </div>
-              <div class="layui-inline">
+              <!--<div class="layui-inline">
                 <div class="layui-input-inline">
-                  <input type="radio" name="sex" value="0" checked title="男">
-                  <input type="radio" name="sex" value="1" title="女">
+                  <input  type="radio" name="sex" value="男" title="男" >
+                  <input  type="radio" name="sex" value="女" title="女" checked>
                 </div>
-              </div>
+              </div>-->
             </div>
+
             <div class="layui-form-item">
               <label for="L_city" class="layui-form-label">城市</label>
               <div class="layui-input-inline">
@@ -132,7 +131,7 @@
               </div>
             </div>
             <div class="layui-form-item">
-              <button class="layui-btn" key="set-mine" lay-filter="*" lay-submit>确认修改</button>
+              <button id="updateUserInfo" class="layui-btn" key="set-mine" lay-filter="*" lay-submit>确认修改</button>
             </div>
           </div>
           
@@ -204,15 +203,17 @@
 </div>
 
 <div class="fly-footer">
-  <p><a href="http://fly.layui.com/" target="_blank">Fly社区</a> 2017 &copy; <a href="http://www.layui.com/" target="_blank">layui.com 出品</a></p>
+  <p><a href="http://118.89.193.111/Advertising" target="_blank">旧版官网</a> 2017 &copy; <a href="http://118.89.193.111/Advertising" target="_blank">zach.net.cn 出品</a></p>
   <p>
-    <a href="http://fly.layui.com/jie/3147/" target="_blank">付费计划</a>
-    <a href="http://www.layui.com/template/fly/" target="_blank">获取Fly社区模版</a>
-    <a href="http://fly.layui.com/jie/2461/" target="_blank">微信公众号</a>
+    <a href="http://118.89.193.111/Advertising" target="_blank">联系我们</a>
+    <a href="http://118.89.193.111/zachproject/bootstrap1.html" target="_blank">Zach新闻</a>
+    <a href="http://118.89.193.111/zachproject/bootstrap1.html" target="_blank">微信公众号</a>
   </p>
 </div>
 
 <script src="../../res/layui/layui.js"></script>
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/set.js"></script>
 <script>
 layui.cache.page = 'user';
 layui.cache.user = {
