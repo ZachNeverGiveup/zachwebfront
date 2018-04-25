@@ -11,64 +11,60 @@
 <body>
 
 <div class="fly-header layui-bg-black">
-  <div class="layui-container">
-    <a class="fly-logo" href="/">
-      <img src="../../res/images/logo.png" alt="layui">
-    </a>
-    <ul class="layui-nav fly-nav layui-hide-xs">
-      <li class="layui-nav-item layui-this">
-        <a href="/"><i class="iconfont icon-jiaoliu"></i>交流</a>
-      </li>
-      <li class="layui-nav-item">
-        <a href="../case/case.html"><i class="iconfont icon-iconmingxinganli"></i>案例</a>
-      </li>
-      <li class="layui-nav-item">
-        <a href="http://www.layui.com/" target="_blank"><i class="iconfont icon-ui"></i>框架</a>
-      </li>
-    </ul>
-    
-    <ul class="layui-nav fly-nav-user">
-      
-      <!-- 未登入的状态 -->
-      <!--
-      <li class="layui-nav-item">
-        <a class="iconfont icon-touxiang layui-hide-xs" href="user/login.html"></a>
-      </li>
-      <li class="layui-nav-item">
-        <a href="user/login.html">登入</a>
-      </li>
-      <li class="layui-nav-item">
-        <a href="user/reg.html">注册</a>
-      </li>
-      <li class="layui-nav-item layui-hide-xs">
-        <a href="/app/qq/" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入" class="iconfont icon-qq"></a>
-      </li>
-      <li class="layui-nav-item layui-hide-xs">
-        <a href="/app/weibo/" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" title="微博登入" class="iconfont icon-weibo"></a>
-      </li>
-       -->
-      
-      <!-- 登入后的状态 -->
-      <li class="layui-nav-item">
-        <a class="fly-nav-avatar" href="javascript:;">
-          <cite class="layui-hide-xs">贤心</cite>
-          <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i>
-          <i class="layui-badge fly-badge-vip layui-hide-xs">VIP3</i>
-          <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
+    <div class="layui-container">
+        <a class="fly-logo" href="/">
+            <img src="../../res/images/logo.png" alt="layui">
         </a>
-        <dl class="layui-nav-child">
-          <dd><a href="../user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
-          <dd><a href="../user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
-          <dd><a href="../user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
-          <hr style="margin: 5px 0;">
-          <dd><a href="" style="text-align: center;">退出</a></dd>
-        </dl>
-      </li>
-    </ul>
-  </div>
+        <ul class="layui-nav fly-nav layui-hide-xs">
+            <li class="layui-nav-item">
+                <p style="font-size: 50px;color: #92B8B1;font-family: 楷体 ;">Zach信息网--发表广告</p>
+            </li>
+        </ul>
+
+        <ul id="layui-nav" class="layui-nav fly-nav-user">
+
+            <!-- 未登入的状态 -->
+            <li id="unLogin" class="layui-nav-item">
+                <ul class="layui-nav-item">
+                    <a class="iconfont icon-touxiang layui-hide-xs" href="../user/login.html"></a>
+                </ul>
+                <ul class="layui-nav-item">
+                    <a href="../user/login.html">登入</a>
+                </ul>
+                <ul class="layui-nav-item">
+                    <a href="../user/reg.html">注册</a>
+                </ul>
+                <ul class="layui-nav-item layui-hide-xs">
+                    <a href="#" onclick="layer.msg('QQ登录失败，请联系管理员Zach', {icon:2, shade: 0.1, time:1000})" title="QQ登入" class="iconfont icon-qq"></a>
+                </ul>
+                <ul class="layui-nav-item layui-hide-xs">
+                    <a href="/app/weibo/" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" title="微博登入" class="iconfont icon-weibo"></a>
+                </ul>
+            </li>
+
+            <!-- 登入后的状态 -->
+
+            <li id="hasLogin" class="layui-nav-item">
+                <a class="fly-nav-avatar" href="javascript:;">
+                    <cite id="username1" class=""></cite>
+                    <i id="userVerify" class="iconfont icon-renzheng" ></i>
+                    <i id="userVIPGrade1" class="layui-badge fly-badge-vip layui-hide-xs"></i>
+                    <img src="https://pbs.twimg.com/profile_images/805715988494725120/57GcmmoO_bigger.jpg">
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="../user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
+                    <dd><a href="../user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
+                    <dd><a href="../user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
+                    <hr style="margin: 5px 0;">
+                    <dd><a href="javascript:logout();" style="text-align: center;">退出</a></dd>
+                </dl>
+            </li>
+
+        </ul>
+    </div>
 </div>
 
-<div class="layui-container fly-marginTop">
+<div class="layui-container fly-marginTop layui-form">
   <div class="fly-panel" pad20 style="padding-top: 5px;">
     <!--<div class="fly-none">没有权限</div>-->
     <div class="layui-form layui-form-pane">
@@ -78,37 +74,61 @@
         </ul>
         <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
           <div class="layui-tab-item layui-show">
-            <form action="" method="post">
-              <div class="layui-row layui-col-space15 layui-form-item">
-                <div class="layui-col-md3">
-                  <label class="layui-form-label">广告类别</label>
-                  <div class="layui-input-block">
-                    <select lay-verify="required" name="class" lay-filter="column">
-                      <option value="公益广告">公益广告</option>
-                      <option value="招聘">招聘</option>
-                      <option value="房产">房产</option>
-                      <option value="二手市场">二手市场</option>
-                      <option value="宠物">宠物</option>
-                      <option value="本地商务">本地商务</option>
-                      <option value="本地服务">本地服务</option>
-                      <option value="旅游酒店">旅游酒店</option>
-                      <option value="餐饮美食">餐饮美食</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="layui-col-md9">
+            <form action="" class="layui-form" method="post">
+
+                <div>
                   <label for="L_title" class="layui-form-label">标题</label>
                   <div class="layui-input-block">
                     <input type="text" id="L_title" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
                     <!-- <input type="hidden" name="id" value="{{d.edit.id}}"> -->
                   </div>
+                </div> <hr>
+                <div>
+                    <div id="editor" class="layui-col-md-9"></div>
                 </div>
-              </div>
-              <textarea id="demo" style="display: none;"></textarea>
-              <div class="layui-form-item">
-                <button class="layui-btn" lay-filter="*" lay-submit>立即发布</button>
-              </div>
+                <hr>
+              <!--<textarea id="demo" style="display: none;"></textarea>-->
+            <div class="layui-row layui-col-space15 layui-form-item">
+                <div class="layui-col-md3">
+                    <label class="layui-form-label">广告类别</label>
+                    <div class="layui-input-block">
+                        <select id="type" lay-verify="required" name="class" lay-filter="column">
+                            <option value="公益广告">公益广告</option>
+                            <option value="招聘">招聘</option>
+                            <option value="房产">房产</option>
+                            <option value="二手市场">二手市场</option>
+                            <option value="宠物">宠物</option>
+                            <option value="本地商务">本地商务</option>
+                            <option value="本地服务">本地服务</option>
+                            <option value="旅游酒店">旅游酒店</option>
+                            <option value="餐饮美食">餐饮美食</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+                <div class="layui-col-md3 layui-form-item">
+                    <label for="price" class="layui-form-label">价格</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="price" name="price" placeholder="￥" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-col-md3 layui-form-item">
+                    <label for="price" class="layui-form-label">开始时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" id="startTime">
+                    </div>
+                </div>
+                <div class="layui-col-md3 layui-form-item">
+                    <label for="price" class="layui-form-label">结束时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" id="endTime">
+                    </div>
+                </div>
             </form>
+            <div class="layui-form-item">
+              <button id="addad" class="layui-btn" lay-filter="*" lay-submit>立即发布</button>
+                <button id="www" class="layui-btn" >立即发布</button>
+            </div>
           </div>
         </div>
       </div>
@@ -117,7 +137,7 @@
 </div>
 
 <div class="fly-footer">
-  <p><a href="http://118.89.193.111/Advertising" target="_blank">旧版官网</a> 2017 &copy; <a href="http://118.89.193.111/Advertising" target="_blank">zach.net.cn 出品</a></p>
+  <p><a href="http://118.89.193.111/Advertising" target="_blank">旧版官网</a> 2018 &copy; <a href="http://118.89.193.111/Advertising" target="_blank">zach.net.cn 出品</a></p>
   <p>
     <a href="http://118.89.193.111/Advertising" target="_blank">联系我们</a>
     <a href="http://118.89.193.111/zachproject/bootstrap1.html" target="_blank">Zach新闻</a>
@@ -126,7 +146,12 @@
 </div>
 
 <script src="../../res/layui/layui.js"></script>
+<script src="../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../wangEditor-3.0.15/release/wangEditor.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../../wangEditor-3.0.15/release/wangEditor.min.css">
 <script>
+    var userMoney;
+
 layui.cache.page = 'jie';
 layui.cache.user = {
   username: '游客'
@@ -141,12 +166,122 @@ layui.config({
 }).extend({
   fly: 'index'
 }).use('fly');
+layui.use('laydate', function(){
+    var laydate = layui.laydate;
 
-layui.use('layedit', function(){
-    var layedit = layui.layedit;
-    layedit.build('demo'); //建立编辑器
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#startTime' //指定元素
+    });
+    laydate.render({
+        elem: '#endTime' //指定元素
+    });
 });
+var E = window.wangEditor;
+var editor = new E('#editor');
+// 或者 var editor = new E( document.getElementById('editor') )
+editor.create();
+
+document.getElementById('www').addEventListener('click', function () {
+
+});
+$("#addad").on('click',(function () {
+    console.log($("#startTime").val());
+    console.log($("#endTime").val());
+    var strStartTime = $("#startTime").val();
+    var endTime = $("#endTime").val();
+    var money;
+    if (strStartTime == "" || endTime == "") {
+        alert("时间不能为空！");
+        return false;
+    }else if(strStartTime==endTime){
+        money = AdTypeToMoney($("#type").val());
+    }else {
+        var startNum = parseInt(strStartTime.replace(/-/g, ''), 10);
+        var endNum = parseInt(endTime.replace(/-/g, ''), 10);
+        if (startNum > endNum) {
+            alert("结束时间不能在开始时间之前！");
+            return false;
+        }
+        else {
+            console.log(DateDiff(strStartTime, endTime));  //调用/计算两个日期天数差的函数，通用
+            money = AdTypeToMoney($("#type").val())*DateDiff(strStartTime, endTime);
+        }
+    }
+    if (money>userMoney){
+        layui.use('layer', function(){
+            layui.layer.msg('余额不足，请先充值！', { shade: 0.1, time:1000,anim:6});
+        });
+        return false;
+    }
+    layer.open({
+        title:'订单确认',
+        content: '<p style="color: #4F99CF">共计价格：'+money+'币</p>\n' +
+        '    <p style="color: #5FB878">使用余额（'+userMoney+'币）</p>'
+        ,btn: ['确认', '取消']
+        ,yes: function(index, layero){
+            //按钮【按钮一】的回调
+            console.log($("#type option:selected"));
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:3002/ad/newAd",
+                data:{type:$("#type").val(),
+                    title:$("#L_title").val(),
+                    html:editor.txt.html(),
+                    text:editor.txt.text(),
+                    startTime:$("#startTime").val(),
+                    endTime:$("#endTime").val(),
+                    money:money
+                },
+                dataType:'json',
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                success:function(data){
+                    if (data.message=="Success"){
+                        layui.use('layer', function(){
+                            layui.layer.msg('发表成功！');
+                        });
+
+                    }else{
+                        alert(data.message);
+                    }
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    alert("服务器请求错误>>"+XMLHttpRequest.status+XMLHttpRequest.readyState+textStatus+errorThrown);
+                }
+            });
+        }
+        ,btn2: function(index, layero){
+            //按钮【按钮二】的回调
+            //return false 开启该代码可禁止点击该按钮关闭
+        }
+        ,cancel: function(){
+            //右上角关闭回调
+            //return false 开启该代码可禁止点击该按钮关闭
+        }
+    });
+}));
+function DateDiff(sDate1, sDate2) {  //sDate1和sDate2是yyyy-MM-dd格式
+    var aDate, oDate1, oDate2, iDays;
+    aDate = sDate1.split("-");
+    oDate1 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);  //转换为yyyy-MM-dd格式
+    aDate = sDate2.split("-");
+    oDate2 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);
+    iDays = parseInt(Math.abs(oDate1 - oDate2) / 1000 / 60 / 60 / 24); //把相差的毫秒数转换为天数
+    return iDays;  //返回相差天数
+}
+function AdTypeToMoney(adType){
+    if (adType=='公益广告'){
+        return 2;
+    }else{
+        return 5;
+    }
+}
 </script>
+<script src="../../js/header.js"></script>
+<script src="../../js/user.js"></script>
 
 </body>
 </html>

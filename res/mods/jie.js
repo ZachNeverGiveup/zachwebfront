@@ -1,8 +1,9 @@
-/**
+/*
+/!**
 
  @Name: 求解板块
 
- */
+ *!/
  
 layui.define('fly', function(exports){
 
@@ -74,7 +75,7 @@ layui.define('fly', function(exports){
   gather.jieAdmin = {
     //删求解
     del: function(div){
-      layer.confirm('确认删除该求解么？', function(index){
+      layer.confirm('确认删除该求解吗？', function(index){
         layer.close(index);
         fly.json('/api/jie-delete/', {
           id: div.data('id')
@@ -204,7 +205,7 @@ layui.define('fly', function(exports){
       });
     }
     ,del: function(li){ //删除
-      layer.confirm('确认删除该回答么？', function(index){
+      layer.confirm('确认删除该评论吗？', function(index){
         layer.close(index);
         fly.json('/api/jieda-delete/', {
           id: li.data('id')
@@ -238,4 +239,4 @@ layui.define('fly', function(exports){
   }
 
   exports('jie', null);
-});
+});*/

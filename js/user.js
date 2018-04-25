@@ -222,3 +222,35 @@ $("#codeSubmit").on('click',(function () {
         }
     });
 }));
+
+/**
+ * 登出、退出功能
+ */
+function logout(){
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:3002/logout",
+        dataType:'json',
+        xhrFields: {
+            withCredentials: true
+        },
+        success:function(data){
+            if (data.message=="Success"){
+                layui.use('layer', function(){
+                    layui.layer.msg('账号已经登出！请重新登陆！');
+                });
+                setTimeout(function () {
+                        window.location.href = "http://localhost:3000/html/user/login.html";
+                    }
+                    , 1000);
+            }else{
+                layui.use('layer', function(){
+                    layui.layer.msg("退出失败！原因："+data.message);
+                });
+            }
+        },
+        error:function(XMLHttpRequest, textStatus, errorThrown){
+            alert("服务器请求错误>>"+XMLHttpRequest.status+XMLHttpRequest.readyState+textStatus+errorThrown);
+        }
+    });
+}
