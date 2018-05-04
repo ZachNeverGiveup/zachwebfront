@@ -1,5 +1,4 @@
-window.onload=findUser;
-function findUser() {
+
     $.ajax({
         type: "POST",
         url: "http://localhost:3002/findUser",
@@ -32,7 +31,7 @@ function findUser() {
             alert(textStatus);
         }
     });
-}
+
 //updateUserInfo
 $("#updateUserInfo").on('click',(function () {
     var username = $("#L_username").val();
@@ -74,5 +73,49 @@ $("#updateUserInfo").on('click',(function () {
                 alert(textStatus);
             }
         });
+}));
+/**
+ * 修改密码
+ */
+$("#resetPwd").on('click',(function () {
+    var password = $("#L_pass").val();
+    var repassword = $("#L_repass").val();
+    console.log("password"+password);
+    console.log("repassword"+repassword);
+    //比较两次密码是否一致
+    if(password!=repassword){
+        layui.use('layer', function(){
+            layui.layer.msg('两次的密码不一致！！', {icon:2, shade: 0.1, time:1000,anim:4});
+        });
+    }else {
+        console.log("两次的密码一致");
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:3002/updatePassword",
+            data:{oldPassword:$("#L_nowpass").val(),
+                newPassword:password},
+            dataType:'json',
+            xhrFields: {
+                withCredentials: true
+            },
+            success:function(data){
+                if (data.message=="Success"){
+                    layui.use('layer', function(){
+                        layui.layer.msg('密吗修改成功！请重新登陆！');
+                    });
+                    setTimeout(function () {
+                            window.location.href = "http://localhost:3000/html/user/login.html";
+                        }
+                        , 1000);
+                }else{
+                    alert(data.message);
+                }
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                alert("服务器请求错误>>"+XMLHttpRequest.status+XMLHttpRequest.readyState+textStatus+errorThrown);
+            }
+        });
+    }
+
 }));
 

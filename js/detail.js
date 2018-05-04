@@ -1,3 +1,6 @@
+$("#delAdLink").hide();
+$("#updateAdLink").hide();
+var userID = "";
 var url=location.search;
 var id;
 var Request = new Object();
@@ -15,48 +18,59 @@ id = decodeURIComponent(id);
 console.log("这篇广告信息的id是："+id);
 $("#collect").hide();
 $("#cancelCollect").hide();
+setTimeout(selectAdDetail(), 200);
 /**
  * 查询广告的信息
  */
-$.ajax({
-    type: "POST",
-    url: "http://localhost:3002/ad/selectAdDetail",
-    dataType:'json',
-    xhrFields: {
-        withCredentials: true
-    },
-    crossDomain: true,
-    data:{id:id},
-    success:function(data){
-        if (data.message=="Success"){
-            $("title").text(data.dataObject.adTitle);
-            $("#title").text(data.dataObject.adTitle);
-            $("#commentNum").html("<i class=\"iconfont\" title=\"评论\">&#xe60c;</i>"+data.dataObject.adCommentNumber);
-            $("#clickNum").append(data.dataObject.adClickNumber);
-            $("#userName").html(data.dataObject.user.userName);   //userVipGrade
-            if (data.dataObject.user.userVerifyStatus=="HAS_AUTHENTICATED"){
-                $("#userVerify2").attr("title","认证信息："+data.dataObject.user.userType+"（已认证）");
-            }if (data.dataObject.user.userVerifyStatus=="NO_AUTHENTICATE"){
-                $("#userVerify2").attr("title","认证信息："+data.dataObject.user.userType+"（未认证）");
-            }if (data.dataObject.user.userVerifyStatus=="PENDING"){
-                $("#userVerify2").attr("title","认证信息："+data.dataObject.user.userType+"（认证中）");
+function selectAdDetail() {
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:3002/ad/selectAdDetail",
+        dataType:'json',
+        xhrFields: {
+            withCredentials: true
+        },
+        crossDomain: true,
+        data:{id:id},
+        success:function(data){
+            if (data.message=="Success"){
+                $("title").text(data.dataObject.adTitle);
+                $("#title").text(data.dataObject.adTitle);
+                $("#commentNum").html("<i class=\"iconfont\" title=\"评论\">&#xe60c;</i>"+data.dataObject.adCommentNumber);
+                $("#clickNum").append(data.dataObject.adClickNumber);
+                $("#userName").html(data.dataObject.user.userName);   //userVipGrade
+                if (data.dataObject.user.userVerifyStatus=="HAS_AUTHENTICATED"){
+                    $("#userVerify2").attr("title","认证信息："+data.dataObject.user.userType+"（已认证）");
+                }if (data.dataObject.user.userVerifyStatus=="NO_AUTHENTICATE"){
+                    $("#userVerify2").attr("title","认证信息："+data.dataObject.user.userType+"（未认证）");
+                }if (data.dataObject.user.userVerifyStatus=="PENDING"){
+                    $("#userVerify2").attr("title","认证信息："+data.dataObject.user.userType+"（认证中）");
+                }
+                $("#userVipGrade").html("VIP"+data.dataObject.user.userVipGrade);
+                $("#detail-body").html(data.dataObject.adHtml);
+                var date = new Date(data.dataObject.adAddTime);
+                var month = date.getMonth()+1;
+                $("#adaddtime").html(date.getFullYear()+"-"+month+"-"+date.getDate());
+                $("#adPrice").hide();
+                if(data.dataObject.adPrice!=null){
+                    $("#adPrice").show();
+                    $("#adPrice").html("产品价格：￥"+data.dataObject.adPrice);
+                }
+                userID=data.dataObject.user.userId;
+            }else{
+                alert(data.message);
+                window.location.href = "http://localhost:3000/html/index.html";
             }
-            $("#userVipGrade").html("VIP"+data.dataObject.user.userVipGrade);
-            $("#detail-body").html(data.dataObject.adHtml);
-            var date = new Date(data.dataObject.adAddTime);
-            var month = date.getMonth()+1;
-            $("#adaddtime").html(date.getFullYear()+"-"+month+"-"+date.getDate());
-        }else{
-            alert(data.message);
+        },
+        error:function(XMLHttpRequest, textStatus, errorThrown){
+            alert("服务器请求错误");
+            alert(XMLHttpRequest.status);
+            alert(XMLHttpRequest.readyState);
+            alert(textStatus);
         }
-    },
-    error:function(XMLHttpRequest, textStatus, errorThrown){
-        alert("服务器请求错误");
-        alert(XMLHttpRequest.status);
-        alert(XMLHttpRequest.readyState);
-        alert(textStatus);
-    }
-});
+    });
+}
+
 /**
  * 查询广告的评论信息
  */
@@ -223,4 +237,103 @@ $("#cancelCollect").on('click',(function () {
         }
     });
 }));
+/**
+ *跳转编辑广告页面
+ */
+$("#updateAdLink").on('click',(function () {
+    window.location.href = "http://localhost:3000/html/jie/update.html?adId="+id;
+}));
 
+/**
+ *删除广告
+ */
+$("#delAdLink").on('click',(function () {
+    layer.open({
+        title:'广告信息删除',
+        content: '你确认删除这条广告吗？你将失去所有信息！'
+        ,btn: ['确认', '取消']
+        ,yes: function(index, layero){
+            //按钮【按钮一】的回调
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:3002/ad/delAd",
+                data:{id:id},
+                dataType:'json',
+                xhrFields: {
+                    withCredentials: true
+                },
+                success:function(data){
+                    if (data.message=="Success"){
+                        layui.use('layer', function(){
+                            layui.layer.msg('删除成功');
+                        });
+
+                    }else{
+                        alert(data.message);
+                    }
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    alert("服务器请求错误>>"+XMLHttpRequest.status+XMLHttpRequest.readyState+textStatus+errorThrown);
+                }
+            });
+        }
+        ,btn2: function(index, layero){
+            //按钮【按钮二】的回调
+            //return false 开启该代码可禁止点击该按钮关闭
+        }
+        ,cancel: function(){
+            //右上角关闭回调
+            //return false 开启该代码可禁止点击该按钮关闭
+        }
+    });
+}));
+window.onload=findUserToHeader;
+var userID1;
+function findUserToHeader() {
+    $("#hasLogin").hide();
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:3002/findUser",
+        dataType:'json',
+        xhrFields: {
+            withCredentials: true
+        },
+        crossDomain: true,
+        success:function(data){
+            if (data.message=="Success"){
+                if(null!=data.dataObject.userName){
+                    /*layui.use('layer', function(){
+                        layui.layer.msg('已为您自动登录', { shade: 0.1, time:500,anim:4});
+                    });*/
+                    $("#username1").html(data.dataObject.userName);
+                    $("#userVIPGrade1").html("VIP"+data.dataObject.userVipGrade);
+                    if (data.dataObject.userVerifyStatus=="HAS_AUTHENTICATED"){
+                        $("#userVerify").attr("title","认证信息："+data.dataObject.userType+"（已认证）");
+                    }if (data.dataObject.userVerifyStatus=="NO_AUTHENTICATE"){
+                        $("#userVerify").hide();
+                    }if (data.dataObject.userVerifyStatus=="PENDING"){
+                        $("#userVerify").hide();
+                    }
+                    $("#unLogin").hide();
+                    $("#hasLogin").show();
+                    userMoney = data.dataObject.userMoney;
+                    userID1 = data.dataObject.userId;
+                    if (userID1==userID){
+                        $("#delAdLink").show();
+                        $("#updateAdLink").show();
+                    }
+                }else{
+                    layui.use('layer', function(){
+                        layui.layer.msg('请先登录！', {icon:2, shade: 0.1, time:1000});
+                    });
+
+                }
+            }else{
+                alert(data.message);
+            }
+        },
+        error:function(XMLHttpRequest, textStatus, errorThrown){
+            alert("服务器请求错误>>>"+XMLHttpRequest.status+">>>"+XMLHttpRequest.readyState+">>>"+textStatus+errorThrown);
+        }
+    });
+}

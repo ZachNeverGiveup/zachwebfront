@@ -12,41 +12,57 @@
 
 <div class="fly-header layui-bg-black">
   <div class="layui-container">
-    <a class="fly-logo" href="/">
+    <a class="fly-logo" href="http://localhost:3000/html/index.html">
       <img src="../../res/images/logo.png" alt="layui">
     </a>
     <ul class="layui-nav fly-nav layui-hide-xs">
-      <li class="layui-nav-item layui-this">
-        <a href="/"><i class="iconfont icon-jiaoliu"></i>交流</a>
-      </li>
       <li class="layui-nav-item">
-        <a href="../case/case.html"><i class="iconfont icon-iconmingxinganli"></i>案例</a>
-      </li>
-      <li class="layui-nav-item">
-        <a href="http://www.layui.com/" target="_blank"><i class="iconfont icon-ui"></i>框架</a>
+        <p style="font-size: 30px;color: #92B8B1;font-family: 楷体 ;">广告信息网--个人设置</p>
       </li>
     </ul>
-    
-    <ul class="layui-nav fly-nav-user">
+
+    <ul id="layui-nav" class="layui-nav fly-nav-user">
+      <!-- 未登入的状态 -->
+      <li id="unLogin" class="layui-nav-item">
+        <ul class="layui-nav-item">
+          <a class="iconfont icon-touxiang layui-hide-xs" href="user/login.html"></a>
+        </ul>
+        <ul class="layui-nav-item">
+          <a href="http://localhost:3000/html/user/login.html">登入</a>
+        </ul>
+        <ul class="layui-nav-item">
+          <a href="http://localhost:3000/html/user/reg.html">注册</a>
+        </ul>
+        <ul class="layui-nav-item layui-hide-xs">
+          <a href="#" onclick="layer.msg('访问QQ失败，请联系管理员Zach', {icon:2, shade: 0.1, time:1000})" title="QQ登入" class="iconfont icon-qq"></a>
+        </ul>
+        <ul class="layui-nav-item layui-hide-xs">
+          <a href="/app/weibo/" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" title="微博登入" class="iconfont icon-weibo"></a>
+        </ul>
+      </li>
+
       <!-- 登入后的状态 -->
-      <li class="layui-nav-item">
+
+      <li id="hasLogin" class="layui-nav-item">
         <a class="fly-nav-avatar" href="javascript:;">
-          <cite class="layui-hide-xs">贤心</cite>
-          <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i>
-          <i class="layui-badge fly-badge-vip layui-hide-xs">VIP3</i>
-          <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
+          <cite id="username1" class=""></cite>
+          <i id="userVerify" class="iconfont icon-renzheng" ></i>
+          <i id="userVIPGrade1" class="layui-badge fly-badge-vip layui-hide-xs"></i>
+          <img src="https://pbs.twimg.com/profile_images/805715988494725120/57GcmmoO_bigger.jpg">
         </a>
         <dl class="layui-nav-child">
-          <dd><a href="../user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
-          <dd><a href="../user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
-          <dd><a href="../user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
+          <dd><a href="http://localhost:3000/html/user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
+          <dd><a href="http://localhost:3000/html/user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
+          <dd><a href="http://localhost:3000/html/user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
           <hr style="margin: 5px 0;">
-          <dd><a href="" style="text-align: center;">退出</a></dd>
+          <dd><a href="javascript:logout();" style="text-align: center;">退出</a></dd>
         </dl>
       </li>
+
     </ul>
   </div>
 </div>
+
 
 <div class="layui-container fly-marginTop fly-user-main">
   <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
@@ -72,6 +88,18 @@
       <a href="message.html">
         <i class="layui-icon">&#xe611;</i>
         我的消息
+      </a>
+    </li>
+    <li id="admin_user" class="layui-nav-item">
+      <a href="admin_user.html">
+        <i class="layui-icon">&#xe613;</i>
+        用户管理
+      </a>
+    </li>
+    <li id="admin_ad" class="layui-nav-item">
+      <a href="admin_ad.html">
+        <i class="layui-icon">&#xe62a;</i>
+        广告管理
       </a>
     </li>
   </ul>
@@ -149,7 +177,6 @@
           </div>
           
           <div class="layui-form layui-form-pane layui-tab-item">
-            <form action="/user/repass" method="post">
               <div class="layui-form-item">
                 <label for="L_nowpass" class="layui-form-label">当前密码</label>
                 <div class="layui-input-inline">
@@ -169,10 +196,10 @@
                   <input type="password" id="L_repass" name="repass" required lay-verify="required" autocomplete="off" class="layui-input">
                 </div>
               </div>
-              <div class="layui-form-item">
-                <button class="layui-btn" key="set-mine" lay-filter="*" lay-submit>确认修改</button>
-              </div>
-            </form>
+
+            <div class="layui-form-item">
+              <button class="layui-btn" key="set-mine" id="resetPwd">确认修改</button>
+            </div>
           </div>
           
           <div class="layui-form layui-form-pane layui-tab-item">
@@ -213,6 +240,8 @@
 
 <script src="../../res/layui/layui.js"></script>
 <script src="../../js/jquery.min.js"></script>
+<script src="../../js/user.js"></script>
+
 <script src="../../js/set.js"></script>
 <script>
 layui.cache.page = 'user';
@@ -230,6 +259,6 @@ layui.config({
   fly: 'index'
 }).use('fly');
 </script>
-
+<script src="../../js/header.js"></script>
 </body>
 </html>

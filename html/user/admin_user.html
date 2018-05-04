@@ -3,7 +3,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>用户中心</title>
+  <title>用户管理—管理员—Zach广告信息网</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" href="../../res/layui/css/layui.css">
   <link rel="stylesheet" href="../../res/css/global.css">
@@ -17,7 +17,7 @@
     </a>
     <ul class="layui-nav fly-nav layui-hide-xs">
       <li class="layui-nav-item">
-        <p style="font-size: 30px;color: #92B8B1;font-family: 楷体 ;">Zach信息网--发表广告</p>
+        <p style="font-size: 30px;color: #92B8B1;font-family: 楷体 ;">Zach信息网--用户管理</p>
       </li>
     </ul>
 
@@ -72,7 +72,7 @@
         我的主页
       </a>
     </li>
-    <li class="layui-nav-item layui-this">
+    <li class="layui-nav-item">
       <a href="index.html">
         <i class="layui-icon">&#xe612;</i>
         用户中心
@@ -90,7 +90,7 @@
         我的消息
       </a>
     </li>
-    <li id="admin_user" class="layui-nav-item">
+    <li id="admin_user" class="layui-nav-item layui-this" >
       <a href="admin_user.html">
         <i class="layui-icon">&#xe613;</i>
         用户管理
@@ -123,20 +123,75 @@
     -->
     <div class="layui-tab layui-tab-brief" lay-filter="user">
       <ul class="layui-tab-title" id="LAY_mine">
-        <li data-type="mine-jie" lay-id="index" class="layui-this">我发的帖</li>
-        <li id="userCollect" data-type="collection" data-url="/collection/find/" lay-id="collection">我收藏的帖</li>
+        <li data-type="mine-jie" lay-id="index" class="layui-this">用户管理</li>
+        <li id="userV" data-type="collection" data-url="/collection/find/" lay-id="collection">认证审核</li>
       </ul>
       <div class="layui-tab-content" style="padding: 20px 0;">
         <div class="layui-tab-item layui-show">
-          <ul id="ads" class="mine-view jie-row">
+          <div class="layui-btn-group demoTable">
+            <button class="layui-btn" data-type="getCheckData">获取选中行数据</button>
+            <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
+            <button class="layui-btn" data-type="isAll">验证是否全选</button>
+          </div>
+          <table id="demo" lay-filter="test"></table>
+         <table class="layui-table" lay-data="{width: 900, height:332, url:'http://localhost:3002/admin/findUser', page:true, id:'idTest'}" lay-filter="demo">
+            <thead>
+            <tr>
+              <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+              <th lay-data="{field:'userId', width:80, sort: true, fixed: true}">ID</th>
+              <th lay-data="{field:'userName', width:100, sort: true}">用户名</th>
+              <th lay-data="{field:'userVipGrade', width:100, sort: true}">会员等级</th>
+              <th lay-data="{field:'userSex', width:70, sort: true}">性别</th>
+              <th lay-data="{field:'userCity', width:80}">城市</th>
+              <th lay-data="{field:'userSignature', width:150}">签名</th>
+              <th lay-data="{field:'userMoney', width:80, sort: true}">积分</th>
+<!--
+              <th lay-data="{field:'classify', width:80}">职业</th>
+              <th lay-data="{field:'wealth', width:135, sort: true}">财富</th>
+              <th lay-data="{field:'score', width:80, sort: true, fixed: 'right'}">评分</th>-->
+              <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
+            </tr>
+            </thead>
+          </table>
 
-          </ul>
+         <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a id="DEL" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+          </script>
           <div id="LAY_page"></div>
         </div>
         <div class="layui-tab-item">
-          <ul id="adcs" class="mine-view jie-row">
+         <!-- <div class="layui-btn-group demoTable">
+            <button class="layui-btn" data-type="getCheckData">获取选中行数据</button>
+            <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
+            <button class="layui-btn" data-type="isAll">验证是否全选</button>
+          </div>-->
+          <table id="demo2" lay-filter="test"></table>
+          <table class="layui-table" lay-data="{width: 900, height:332, url:'http://localhost:3002/admin/findPendingUser', page:true, id:'idTest'}" lay-filter="demo">
+            <thead>
+            <tr>
+              <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+              <th lay-data="{field:'userId', width:80, sort: true, fixed: true}">ID</th>
+              <th lay-data="{field:'userName', width:100, sort: true}">用户名</th>
+              <th lay-data="{field:'userVipGrade', width:100, sort: true}">会员等级</th>
+              <th lay-data="{field:'userSex', width:70, sort: true}">性别</th>
+              <th lay-data="{field:'userCity', width:80}">城市</th>
+              <th lay-data="{field:'userSignature', width:150}">签名</th>
+              <th lay-data="{field:'userMoney', width:80, sort: true}">积分</th>
+              <!--
+                            <th lay-data="{field:'classify', width:80}">职业</th>
+                            <th lay-data="{field:'wealth', width:135, sort: true}">财富</th>
+                            <th lay-data="{field:'score', width:80, sort: true, fixed: 'right'}">评分</th>-->
+              <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo2'}"></th>
+            </tr>
+            </thead>
+          </table>
 
-          </ul>
+          <script type="text/html" id="barDemo2">
+            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+            <a class="layui-btn layui-btn-xs" lay-event="passV">通过认证</a>
+          </script>
           <div id="LAY_page1"></div>
         </div>
       </div>
@@ -172,9 +227,14 @@ layui.config({
   fly: 'index'
 }).use('fly');
 </script>
+<script>
+
+</script>
+<script src="../../js/admin_user.js"></script>
 <script src="../../js/jquery.min.js"></script>
-<script src="../../js/userIndex.js"></script>
+<!--<script src="../../js/admin_user.js"></script>-->
 <script src="../../js/header.js"></script>
 <script src="../../js/user.js"></script>
+
 </body>
 </html>

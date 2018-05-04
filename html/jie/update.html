@@ -3,7 +3,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>发表广告信息</title>
+  <title>编辑广告信息</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" href="../../res/layui/css/layui.css">
   <link rel="stylesheet" href="../../res/css/global.css">
@@ -17,7 +17,7 @@
         </a>
         <ul class="layui-nav fly-nav layui-hide-xs">
             <li class="layui-nav-item">
-                <p style="font-size: 50px;color: #92B8B1;font-family: 楷体 ;">Zach信息网--发表广告</p>
+                <p style="font-size: 50px;color: #92B8B1;font-family: 楷体 ;">Zach信息网--编辑广告</p>
             </li>
         </ul>
 
@@ -70,10 +70,10 @@
     <div class="layui-form layui-form-pane">
       <div class="layui-tab layui-tab-brief" lay-filter="user">
         <ul class="layui-tab-title">
-          <li class="layui-this">发表广告<!-- 编辑广告 --></li>
+          <li class="layui-this">编辑广告</li>
         </ul>
         <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
-          <div id="addDiv" class="layui-tab-item layui-show">
+          <div class="layui-tab-item layui-show">
             <form action="" class="layui-form" method="post">
 
                 <div>
@@ -87,32 +87,32 @@
                     <div id="editor" class="layui-col-md-9"></div>
                 </div>
                 <hr>
-              <!--<textarea id="demo" style="display: none;"></textarea>-->
-            <div class="layui-row layui-col-space15 layui-form-item">
-                <div class="layui-col-md3">
-                    <label class="layui-form-label">广告类别</label>
-                    <div class="layui-input-block">
-                        <select id="type" lay-verify="required" name="class" lay-filter="column">
-                            <option value="公益广告">公益广告</option>
-                            <option value="招聘">招聘</option>
-                            <option value="房产">房产</option>
-                            <option value="二手市场">二手市场</option>
-                            <option value="宠物">宠物</option>
-                            <option value="本地商务">本地商务</option>
-                            <option value="本地服务">本地服务</option>
-                            <option value="旅游酒店">旅游酒店</option>
-                            <option value="餐饮美食">餐饮美食</option>
-                        </select>
+                <!--<textarea id="demo" style="display: none;"></textarea>-->
+                <div class="layui-row layui-col-space15 layui-form-item">
+                    <div class="layui-col-md3">
+                        <label class="layui-form-label">广告类别</label>
+                        <div class="layui-input-block">
+                            <select id="type"  name="class">
+                                <option value="公益广告">公益广告</option>
+                                <option value="招聘">招聘</option>
+                                <option value="房产">房产</option>
+                                <option value="二手市场">二手市场</option>
+                                <option value="宠物">宠物</option>
+                                <option value="本地商务">本地商务</option>
+                                <option value="本地服务">本地服务</option>
+                                <option value="旅游酒店">旅游酒店</option>
+                                <option value="餐饮美食">餐饮美食</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
                 <div class="layui-col-md3 layui-form-item">
                     <label for="price" class="layui-form-label">价格</label>
                     <div class="layui-input-block">
                         <input type="text" id="price" name="price" placeholder="￥" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-                <div class="layui-col-md3 layui-form-item">
+                <div id="startTimeDiv" class="layui-col-md3 layui-form-item">
                     <label for="price" class="layui-form-label">开始时间</label>
                     <div class="layui-input-block">
                         <input type="text" class="layui-input" id="startTime">
@@ -126,8 +126,8 @@
                 </div>
             </form>
             <div class="layui-form-item">
-              <button id="addad" class="layui-btn" lay-filter="*" lay-submit>立即发布</button>
-                <button id="www" class="layui-btn" >立即发布</button>
+              <button id="updateAd" class="layui-btn" lay-filter="*" lay-submit>立即发布</button>
+                <button id="www" class="layui-btn" >测试按钮</button>
             </div>
           </div>
         </div>
@@ -150,7 +150,7 @@
 <script type="text/javascript" src="../../wangEditor-3.0.15/release/wangEditor.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../../wangEditor-3.0.15/release/wangEditor.min.css">
 <script>
-    var userMoney;
+   var userMoney;
 
 layui.cache.page = 'jie';
 layui.cache.user = {
@@ -177,111 +177,17 @@ layui.use('laydate', function(){
         elem: '#endTime' //指定元素
     });
 });
-var E = window.wangEditor;
-var editor = new E('#editor');
-// 或者 var editor = new E( document.getElementById('editor') )
-editor.create();
 
 document.getElementById('www').addEventListener('click', function () {
 
 });
-$("#addad").on('click',(function () {
-    console.log($("#startTime").val());
-    console.log($("#endTime").val());
-    var strStartTime = $("#startTime").val();
-    var endTime = $("#endTime").val();
-    var money;
-    if (strStartTime == "" || endTime == "") {
-        alert("时间不能为空！");
-        return false;
-    }else if(strStartTime==endTime){
-        money = AdTypeToMoney($("#type").val());
-    }else {
-        var startNum = parseInt(strStartTime.replace(/-/g, ''), 10);
-        var endNum = parseInt(endTime.replace(/-/g, ''), 10);
-        if (startNum > endNum) {
-            alert("结束时间不能在开始时间之前！");
-            return false;
-        }
-        else {
-            console.log(DateDiff(strStartTime, endTime));  //调用/计算两个日期天数差的函数，通用
-            money = AdTypeToMoney($("#type").val())*DateDiff(strStartTime, endTime);
-        }
-    }
-    if (money>userMoney){
-        layui.use('layer', function(){
-            layui.layer.msg('余额不足，请先充值！', { shade: 0.1, time:1000,anim:6});
-        });
-        return false;
-    }
-    layer.open({
-        title:'订单确认',
-        content: '<p style="color: #4F99CF">共计价格：'+money+'币</p>\n' +
-        '    <p style="color: #5FB878">使用余额（'+userMoney+'币）</p>'
-        ,btn: ['确认', '取消']
-        ,yes: function(index, layero){
-            //按钮【按钮一】的回调
-            console.log($("#type option:selected"));
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:3002/ad/newAd",
-                data:{type:$("#type").val(),
-                    title:$("#L_title").val(),
-                    html:editor.txt.html(),
-                    text:editor.txt.text(),
-                    startTime:$("#startTime").val(),
-                    endTime:$("#endTime").val(),
-                    money:money
-                },
-                dataType:'json',
-                xhrFields: {
-                    withCredentials: true
-                },
-                crossDomain: true,
-                success:function(data){
-                    if (data.message=="Success"){
-                        layui.use('layer', function(){
-                            layui.layer.msg('发表成功！');
-                        });
 
-                    }else{
-                        alert(data.message);
-                    }
-                },
-                error:function(XMLHttpRequest, textStatus, errorThrown){
-                    alert("服务器请求错误>>"+XMLHttpRequest.status+XMLHttpRequest.readyState+textStatus+errorThrown);
-                }
-            });
-        }
-        ,btn2: function(index, layero){
-            //按钮【按钮二】的回调
-            //return false 开启该代码可禁止点击该按钮关闭
-        }
-        ,cancel: function(){
-            //右上角关闭回调
-            //return false 开启该代码可禁止点击该按钮关闭
-        }
-    });
-}));
-function DateDiff(sDate1, sDate2) {  //sDate1和sDate2是yyyy-MM-dd格式
-    var aDate, oDate1, oDate2, iDays;
-    aDate = sDate1.split("-");
-    oDate1 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);  //转换为yyyy-MM-dd格式
-    aDate = sDate2.split("-");
-    oDate2 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);
-    iDays = parseInt(Math.abs(oDate1 - oDate2) / 1000 / 60 / 60 / 24); //把相差的毫秒数转换为天数
-    return iDays;  //返回相差天数
-}
-function AdTypeToMoney(adType){
-    if (adType=='公益广告'){
-        return 2;
-    }else{
-        return 5;
-    }
-}
 </script>
 <script src="../../js/header.js"></script>
 <script src="../../js/user.js"></script>
+<script src="../../js/update.js"></script>
+<script>
 
+</script>
 </body>
 </html>
