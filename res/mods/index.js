@@ -498,8 +498,8 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function(
       ,shadeClose: true
       ,maxWidth: 10000
       ,skin: 'fly-layer-search'
-      ,content: ['<form action="https://www.baidu.com/s">'
-        ,'<input autocomplete="off" placeholder="站内百度，回车搜索" type="text" name="wd">'
+      ,content: ['<form action="http://localhost:3000/html/jie/searchList.html">'
+        ,'<input autocomplete="off" placeholder="站内查询，回车搜索" type="text" name="wd">'
       ,'</form>'].join('')
       ,success: function(layero){
         var input = layero.find('input');

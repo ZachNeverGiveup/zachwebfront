@@ -32,6 +32,17 @@ function findUser() {
                     $("#userVIPGrade2").html("VIP"+data.dataObject.userVipGrade);
                     $("#userMoney").html(data.dataObject.userMoney+" Zach币");
                     $("#userCity").html("来自"+data.dataObject.userCity);
+                    $("#userCity").on('click',(function () {
+                        layer.open({
+                            type: 2,
+                            title: data.dataObject.userName+'的城市',
+                            shadeClose: true,
+                            shade: false,
+                            maxmin: true, //开启最大化最小化按钮
+                            area: ['893px', '600px'],
+                            content: 'http://map.baidu.com/?newmap=1&ie=utf-8&s=s%26wd%3D'+data.dataObject.userCity
+                        });
+                    }));
                     var date = new Date(data.dataObject.userRegistTime);
                     var month = date.getMonth()+1;
                     $("#usertime").html(date.getFullYear()+"-"+month+"-"+date.getDate()+"加入");
@@ -68,6 +79,7 @@ function findUser() {
                     $("#ads").html("您还没有发表过任何内容，快去发表吧！~");
                 }else{
                     var ads = "";
+
                     $.each(data.dataObject,function (index,ad) {
                         var date = new Date(ad.adLastUpdateTime);
                         var month = date.getMonth()+1;

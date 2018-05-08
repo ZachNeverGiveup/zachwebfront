@@ -3,7 +3,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>用户管理—管理员—Zach广告信息网</title>
+  <title>广告管理—管理员—Zach广告信息网</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" href="../../res/layui/css/layui.css">
   <link rel="stylesheet" href="../../res/css/global.css">
@@ -123,22 +123,45 @@
     -->
     <div class="layui-tab layui-tab-brief" lay-filter="user">
       <ul class="layui-tab-title" id="LAY_mine">
-        <li data-type="mine-jie" lay-id="index" class="layui-this">我发的帖</li>
-        <li id="userCollect" data-type="collection" data-url="/collection/find/" lay-id="collection">我收藏的帖</li>
+        <li data-type="mine-jie" lay-id="index" class="layui-this">所有广告</li>
+        <!--<li id="userCollect" data-type="collection" data-url="/collection/find/" lay-id="collection">我收藏的帖</li>-->
       </ul>
       <div class="layui-tab-content" style="padding: 20px 0;">
         <div class="layui-tab-item layui-show">
-          <ul id="ads" class="mine-view jie-row">
+          <table id="demo" lay-filter="test"></table>
+          <table class="layui-table" lay-data="{width: 900, height:332, url:'http://localhost:3002/ad/admin/findAds', page:true, id:'idTest'}" lay-filter="demo">
+            <thead>
+            <tr>
+              <th lay-data="{field:'adId', width:80, sort: true, fixed: true}">ID</th>
+              <th lay-data="{field:'adType', width:100, sort: true}">类型</th>
+              <th lay-data="{field:'adTitle', width:100, sort: true}">标题</th>
+              <th lay-data="{field:'adText', width:170, sort: true}">内容</th>
+              <!--<th lay-data="{field:'adAddTime', width:70, sort: true}">添加时间</th>-->
+              <th lay-data="{field:'adClickNumber', width:80, sort: true}">点击量</th>
+              <th lay-data="{field:'adCollectNumber', width:80, sort: true}">收藏量</th>
+              <th lay-data="{field:'adCommentNumber', width:80, sort: true}">评论量</th>
+              <!--
+                            <th lay-data="{field:'classify', width:80}">职业</th>
+                            <th lay-data="{field:'wealth', width:135, sort: true}">财富</th>
+                            <th lay-data="{field:'score', width:80, sort: true, fixed: 'right'}">评分</th>-->
+              <th lay-data="{fixed: 'right', width:180, align:'center', toolbar: '#barDemo'}"></th>
+            </tr>
+            </thead>
+          </table>
 
-          </ul>
+          <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+            <!--<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>-->
+            <a id="DEL" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+          </script>
           <div id="LAY_page"></div>
         </div>
-        <div class="layui-tab-item">
+        <!--<div class="layui-tab-item">
           <ul id="adcs" class="mine-view jie-row">
 
           </ul>
           <div id="LAY_page1"></div>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>
@@ -172,7 +195,9 @@ layui.config({
   fly: 'index'
 }).use('fly');
 </script>
+<script src="../../js/admin_ad.js"></script>
 <script src="../../js/jquery.min.js"></script>
+
 <script src="../../js/header.js"></script>
 <script src="../../js/user.js"></script>
 </body>

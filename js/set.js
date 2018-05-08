@@ -118,4 +118,36 @@ $("#resetPwd").on('click',(function () {
     }
 
 }));
+$("#test1").on('click',(function () {
+    var obj = new Object;
+    var file = document.getElementById("file").files[0];
+    var formData = new FormData();
+    formData.append("data",JSON.stringify(obj));
+    formData.append("file",file);
+    $.ajax({
+        type:"post",
+        url:"http://localhost:3002/upload",
+        contentType:false,
+        processData:false,
+        data:formData,
+        success:function(data){
+            alert(data.msg);
+        }
+    });
+}));
+   /* layui.use('upload', function(){
+        var upload = layui.upload;
 
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#test1' //绑定元素
+            ,url: 'http://localhost:3002/upload' //上传接口
+            ,done: function(res){
+                //上传完毕回调
+                console.log(res);
+            }
+            ,error: function(){
+                //请求异常回调
+            }
+        });
+    });*/
